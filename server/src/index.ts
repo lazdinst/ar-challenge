@@ -1,6 +1,4 @@
-import express from "express";
-
-const app = express();
+import app from "./app";
 const PORT = 5000;
 
 app.get("/", (req, res) => {
