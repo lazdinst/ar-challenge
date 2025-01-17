@@ -10,4 +10,6 @@ export interface TodoItem {
 export interface TodoState {
   todos: TodoItem[];
   status: string;
+  error: string;
+  loading: boolean;
 }
