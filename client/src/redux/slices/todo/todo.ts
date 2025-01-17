@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initial";
 import { todoReducers } from "./reducers";
+import { todoBuilders } from "./builders";
 
 export const todoSlice = createSlice({
   name: "todo",
@@ -8,7 +9,9 @@ export const todoSlice = createSlice({
   reducers: {
     ...todoReducers,
   },
-  extraReducers: () => {},
+  extraReducers: (builder) => {
+    todoBuilders.forEach((applyBuilder) => applyBuilder(builder));
+  },
 });
 
 export const { createTodo, updateTodo, deleteTodo, fetchTodos } =
