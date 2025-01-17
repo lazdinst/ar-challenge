@@ -1,5 +1,8 @@
-import { TodoReducerState } from "./types";
+import { TodoState } from "./types";
 
-export const initialState: TodoReducerState = {
+export const initialState: TodoState = {
   status: "",
+  todos: [],
+  error: null,
+  loading: false,
 };
