@@ -1,3 +1,14 @@
-export { default as todo } from "./todo";
 export { initialState } from "./initial";
-export {} from "./thunks";
+export {
+  default as todo,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  fetchTodos,
+} from "./todo";
+export {
+  fetchTodosThunk,
+  createTodoThunk,
+  updateTodoThunk,
+  deleteTodoThunk,
+} from "./thunks";
