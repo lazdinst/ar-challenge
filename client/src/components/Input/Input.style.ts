@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
 export const StyledLabel = styled.label`
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #ededed;
 `;
 
 export const StyledInput = styled.input`
@@ -18,6 +18,8 @@ export const StyledInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
+  background-color: #000;
+  color: #ededed;
 
   &:focus {
     border-color: #007bff;
@@ -25,7 +27,10 @@ export const StyledInput = styled.input`
   }
 
   &:disabled {
-    background-color: #f5f5f5;
+    background-color: #000;
     cursor: not-allowed;
+  }
+  &::placeholder {
+    color: #ededed;
   }
 `;
