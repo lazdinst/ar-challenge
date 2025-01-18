@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../redux";
 import { fetchTodosThunk } from "../redux/slices/todo";
+import { AddTodoContainer } from "../containers";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <h1>Todo List</h1>
+      <AddTodoContainer />
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
