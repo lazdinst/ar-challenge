@@ -5,6 +5,8 @@ export interface TodoItem {
   dueDate: string;
   category: string;
   completed: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface TodoState {
