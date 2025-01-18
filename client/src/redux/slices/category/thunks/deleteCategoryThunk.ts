@@ -4,9 +4,12 @@ export const deleteCategoryThunk = createAsyncThunk<string, string>(
   "category/deleteCategory",
   async (categoryId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`/api/categories/${categoryId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/categories/${categoryId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to delete category");
       }
