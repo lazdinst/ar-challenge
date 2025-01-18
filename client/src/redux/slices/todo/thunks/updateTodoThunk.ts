@@ -6,7 +6,7 @@ export const updateTodoThunk = createAsyncThunk(
   "todo/updateTodo",
   async (updatedTodo: TodoItem) => {
     const response = await axios.put<TodoItem>(
-      `/api/todos/${updatedTodo.id}`,
+      `http://localhost:5000/api/todos/${updatedTodo.id}`,
       updatedTodo
     );
     return response.data;

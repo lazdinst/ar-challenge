@@ -12,11 +12,14 @@ export const updateCategoryThunk = createAsyncThunk<
   UpdateCategoryPayload
 >("category/updateCategory", async (updatedCategory, { rejectWithValue }) => {
   try {
-    const response = await fetch(`/api/categories/${updatedCategory.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedCategory),
-    });
+    const response = await fetch(
+      `http://localhost:5000/api/categories/${updatedCategory.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedCategory),
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to update category");
     }
