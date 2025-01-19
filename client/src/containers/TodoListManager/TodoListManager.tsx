@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
-import { TodoList } from "../../components";
+import TodoList from "../TodoList";
 
 const TodoManagerContainer: React.FC = () => {
   const dispatch = useAppDispatch();

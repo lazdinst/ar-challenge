@@ -6,13 +6,14 @@ import {
   CheckboxWrapper,
   TodoContentWrapper,
   ActionButtons,
+  TodoItemDate,
 } from "./TodoItem.style";
 import {
   deleteTodoThunk,
   updateTodoThunk,
 } from "../../redux/slices/todo/thunks";
 import { openModal } from "../../redux/slices/ui/ui";
-import Icon from "../../components/Icon/Icon";
+import { Button, Icon } from "../../components";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface TodoItemProps {
@@ -35,6 +36,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     dispatch(deleteTodoThunk(todo.id));
   };
 
+  const isOverdue = new Date(todo.dueDate) < new Date() && !todo.completed;
+
   return (
     <TodoItemWrapper className={todo.completed ? "completed" : ""}>
       <CheckboxWrapper>
@@ -47,11 +50,17 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       <TodoContentWrapper>
         <h3>{todo.title}</h3>
         <p>{todo.description}</p>
-        <p>Due: {new Date(todo.dueDate).toLocaleDateString()}</p>
+        <TodoItemDate isOverDue={isOverdue}>
+          Due: {new Date(todo.dueDate).toLocaleDateString()}
+        </TodoItemDate>
       </TodoContentWrapper>
       <ActionButtons>
-        <Icon icon={faEdit} size="lg" color="blue" onClick={handleEdit} />
-        <Icon icon={faTrash} size="lg" color="red" onClick={handleDelete} />
+        <Button onClick={handleEdit}>
+          <Icon icon={faEdit} size="lg" />
+        </Button>
+        <Button onClick={handleDelete} variant="danger">
+          <Icon icon={faTrash} size="lg" />
+        </Button>
       </ActionButtons>
     </TodoItemWrapper>
   );

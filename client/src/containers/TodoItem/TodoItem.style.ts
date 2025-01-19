@@ -50,3 +50,8 @@ export const ActionButtons = styled.div`
     font-size: 1rem;
   }
 `;
+
+export const TodoItemDate = styled.div<{ isOverDue: boolean }>`
+  color: ${({ isOverDue }) => (isOverDue ? "red" : "inherit")};
+  font-weight: ${({ isOverDue }) => (isOverDue ? "bold" : "normal")};
+`;
