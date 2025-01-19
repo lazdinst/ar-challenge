@@ -24,21 +24,6 @@ export const SortWrapper = styled.div`
   }
 `;
 
-export const TodoItemWrapper = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
-  background-color: #333;
-
-  h3 {
-    margin: 0 0 0.5rem;
-  }
-
-  p {
-    margin: 0.25rem 0;
-  }
-`;
-
 export const ControlsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -53,4 +38,19 @@ export const ControlsWrapper = styled.div`
       font-weight: bold;
     }
   }
+`;
+
+export const TodoItemWrapper = styled.div`
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background-color: #333;
+  color: #ededed;
+`;
+
+export const ActionButtons = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
 `;

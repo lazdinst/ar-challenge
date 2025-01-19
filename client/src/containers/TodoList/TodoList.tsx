@@ -4,7 +4,6 @@ import TodoItem from "./TodoItem";
 import { TodoListWrapper, ControlsWrapper } from "./TodoList.style";
 import Dropdown from "../../components/Dropdown";
 import { filterOptions, sortOptions } from "../../constants";
-
 interface TodoListProps {
   todos: TodoType[];
   onFilterChange: (filter: "all" | "active" | "completed") => void;
