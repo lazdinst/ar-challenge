@@ -45,8 +45,8 @@ export const TodoItemWrapper = styled.div`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 1rem;
-  background-color: #333;
-  color: #ededed;
+  background-color: #ccc;
+  color: #333;
 `;
 
 export const ActionButtons = styled.div`

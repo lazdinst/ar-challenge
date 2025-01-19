@@ -2,7 +2,7 @@ import React from "react";
 import { StyledButton } from "./Button.style";
 
 interface ButtonProps {
-  type: "button" | "submit" | "reset";
+  type?: "button" | "submit" | "reset";
   onClick?: () => void;
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "danger";
@@ -11,7 +11,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  type,
+  type = "button",
   onClick,
   children,
   variant = "primary",

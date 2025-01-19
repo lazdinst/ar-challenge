@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoItem as TodoType } from "../../redux/slices/todo/types";
-import TodoItem from "./TodoItem";
+import TodoItem from "../TodoItem";
 import { TodoListWrapper, ControlsWrapper } from "./TodoList.style";
 import Dropdown from "../../components/Dropdown";
 import { filterOptions, sortOptions } from "../../constants";
