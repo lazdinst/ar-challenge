@@ -28,7 +28,7 @@ export const TodoItemWrapper = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
-  background-color: #f9f9f9;
+  background-color: #333;
 
   h3 {
     margin: 0 0 0.5rem;
