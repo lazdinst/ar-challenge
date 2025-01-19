@@ -50,7 +50,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       <TodoContentWrapper>
         <h3>{todo.title}</h3>
         <p>{todo.description}</p>
-        <TodoItemDate isOverDue={isOverdue}>
+        <TodoItemDate $isOverDue={isOverdue}>
           Due: {new Date(todo.dueDate).toLocaleDateString()}
         </TodoItemDate>
       </TodoContentWrapper>
