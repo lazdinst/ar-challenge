@@ -2,7 +2,8 @@ import React from "react";
 import { TodoItem as TodoType } from "../../redux/slices/todo/types";
 import TodoItem from "./TodoItem";
 import { TodoListWrapper, ControlsWrapper } from "./TodoList.style";
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "../../components/Dropdown";
+import { filterOptions, sortOptions } from "../../constants";
 
 interface TodoListProps {
   todos: TodoType[];
@@ -19,17 +20,6 @@ const TodoList: React.FC<TodoListProps> = ({
   currentFilter,
   currentSortOrder,
 }) => {
-  const filterOptions = [
-    { value: "all", label: "All" },
-    { value: "active", label: "Active" },
-    { value: "completed", label: "Completed" },
-  ];
-
-  const sortOptions = [
-    { value: "dueDate", label: "Due Date" },
-    { value: "creationDate", label: "Creation Date" },
-  ];
-
   return (
     <TodoListWrapper>
       <h2>Your Todos</h2>

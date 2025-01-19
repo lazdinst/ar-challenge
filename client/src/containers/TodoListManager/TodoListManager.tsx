@@ -4,7 +4,7 @@ import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
 import { TodoList } from "../../components";
 
-const TodoListContainer: React.FC = () => {
+const TodoManagerContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const todos = useSelector((state: RootState) => state.todo.todos);
@@ -52,4 +52,4 @@ const TodoListContainer: React.FC = () => {
   );
 };
 
-export default TodoListContainer;
+export default TodoManagerContainer;
