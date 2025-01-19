@@ -29,13 +29,17 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
     title: initialTitle = "",
     description: initialDescription = "",
     dueDate: initialDueDate = "",
-    category: initialCategory = "",
+    category: initialCategoryName = "",
   } = todo || {};
+
+  const initialCategory = categories.find(
+    (cat) => cat.name === initialCategoryName
+  )?.id;
 
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription);
   const [dueDate, setDueDate] = useState(initialDueDate);
-  const [category, setCategory] = useState(initialCategory);
+  const [category, setCategory] = useState(initialCategory || "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,9 +87,9 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
           onChange={(e) => setDueDate(e.target.value)}
         />
         <Dropdown
-          options={categories.map((cat) => ({
-            value: cat.id,
-            label: cat.name,
+          options={categories.map((option) => ({
+            value: option.id,
+            label: option.name,
           }))}
           value={category}
           onChange={(e) => setCategory(e.target.value)}
