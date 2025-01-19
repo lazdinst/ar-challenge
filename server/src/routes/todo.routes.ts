@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", getTodosController);
 router.post("/", createTodoController);
-router.put("/", updateTodoController);
+router.put("/:id", updateTodoController);
 router.delete("/:id", deleteTodoController);
 
 export default router;

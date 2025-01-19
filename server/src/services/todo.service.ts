@@ -32,13 +32,13 @@ export const createTodo = (todo: Todo): Todo => {
   return todo;
 };
 
-export const updateTodo = (id: string, updatedTodo: Todo): boolean => {
+export const updateTodo = (id: string, updatedTodo: Todo): Todo | null => {
   const index = todos.findIndex((todo) => todo.id === id);
   if (index > -1) {
-    todos[index] = updatedTodo;
-    return true;
+    todos[index] = { ...todos[index], ...updatedTodo };
+    return todos[index];
   }
-  return false;
+  return null;
 };
 
 export const deleteTodo = (id: string): boolean => {

@@ -20,9 +20,9 @@ export const createTodoController = (req: Request, res: Response): void => {
 
 export const updateTodoController = (req: Request, res: Response): void => {
   const { id } = req.params;
-  const success = updateTodo(id, req.body);
-  if (success) {
-    res.status(204).send();
+  const updatedTodo = updateTodo(id, req.body);
+  if (updatedTodo) {
+    res.status(200).json(updatedTodo); // Respond with the updated todo
   } else {
     res.status(404).json({ error: "Todo not found" });
   }
