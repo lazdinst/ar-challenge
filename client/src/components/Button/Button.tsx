@@ -3,7 +3,7 @@ import { StyledButton } from "./Button.style";
 
 interface ButtonProps {
   type: "button" | "submit" | "reset";
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "danger";
   size?: "small" | "medium" | "large";
