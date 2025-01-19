@@ -4,38 +4,32 @@ import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
 import { TodoList } from "../../components";
 
-const TodoListContainer: React.FC = () => {
+const TodoManagerContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  // Redux state
   const todos = useSelector((state: RootState) => state.todo.todos);
   const loading = useSelector((state: RootState) => state.todo.loading);
   const error = useSelector((state: RootState) => state.todo.error);
 
-  // Local state for filtering and sorting
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sortOrder, setSortOrder] = useState<"dueDate" | "creationDate">(
     "dueDate"
   );
 
-  // Fetch todos on mount
   useEffect(() => {
     dispatch(fetchTodosThunk());
   }, [dispatch]);
 
-  // Filtered todos based on completion status
   const filteredTodos = todos.filter((todo) => {
     if (filter === "all") return true;
     return filter === "active" ? !todo.completed : todo.completed;
   });
 
-  // Sorted todos based on sortOrder
   const sortedTodos = [...filteredTodos].sort((a, b) => {
     const key = sortOrder === "dueDate" ? "dueDate" : "createdAt";
     return new Date(a[key]).getTime() - new Date(b[key]).getTime();
   });
 
-  // Handlers for filter and sort
   const handleFilterChange = (newFilter: "all" | "active" | "completed") => {
     setFilter(newFilter);
   };
@@ -44,7 +38,6 @@ const TodoListContainer: React.FC = () => {
     setSortOrder(newSortOrder);
   };
 
-  // Error or loading state handling
   if (loading) return <div>Loading todos...</div>;
   if (error) return <div>Error loading todos: {error}</div>;
 
@@ -59,4 +52,4 @@ const TodoListContainer: React.FC = () => {
   );
 };
 
-export default TodoListContainer;
+export default TodoManagerContainer;
