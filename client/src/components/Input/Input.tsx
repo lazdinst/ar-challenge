@@ -8,6 +8,7 @@ interface InputProps {
   type?: "text" | "email" | "number" | "password" | "date" | "color";
   label?: string;
   id?: string;
+  error?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -17,6 +18,7 @@ const Input: React.FC<InputProps> = ({
   type = "text",
   label,
   id,
+  error = false,
 }) => {
   return (
     <InputWrapper>
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        error={error}
       />
     </InputWrapper>
   );
