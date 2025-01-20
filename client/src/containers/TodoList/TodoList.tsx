@@ -1,3 +1,4 @@
+// DEPRECATED
 import React from "react";
 import { TodoItemType } from "../../redux/slices/todo/types";
 import TodoItem from "../TodoItem";
