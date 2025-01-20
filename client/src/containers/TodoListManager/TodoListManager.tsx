@@ -2,12 +2,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
-import TodoList from "../TodoList";
+import TodosControls from "../TodosControls";
+import TodoDNDManager from "../TodoDNDManager";
 
-const TodoManagerContainer: React.FC = () => {
+const TodoListManager: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const todos = useSelector((state: RootState) => state.todo.todos);
+  const categories = useSelector(
+    (state: RootState) => state.category.categories
+  );
   const loading = useSelector(
     (state: RootState) => state.todo.loading.fetchTodos
   );
@@ -38,17 +42,17 @@ const TodoManagerContainer: React.FC = () => {
     });
   }, [filteredTodos, sortOrder, sortDirection]);
 
-  const handleFilterChange = (newFilter: "all" | "active" | "completed") => {
-    setFilter(newFilter);
-  };
-
-  const handleSortChange = (newSortOrder: "dueDate" | "creationDate") => {
-    setSortOrder(newSortOrder);
-  };
-
-  const handleSortDirectionChange = () => {
-    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
-  };
+  const groupedTodos = useMemo(() => {
+    return categories.reduce<Record<string, typeof todos>>(
+      (acc, category) => {
+        acc[category.name] = sortedTodos.filter(
+          (todo) => todo.category === category.name
+        );
+        return acc;
+      },
+      { Uncategorized: sortedTodos.filter((todo) => !todo.category) }
+    );
+  }, [sortedTodos, categories]);
 
   if (loading) return <div>Loading todos...</div>;
   if (error)
@@ -60,16 +64,18 @@ const TodoManagerContainer: React.FC = () => {
     );
 
   return (
-    <TodoList
-      todos={sortedTodos}
-      onFilterChange={handleFilterChange}
-      onSortChange={handleSortChange}
-      onSortDirectionChange={handleSortDirectionChange}
-      currentFilter={filter}
-      currentSortOrder={sortOrder}
-      sortDirection={sortDirection}
-    />
+    <>
+      <TodosControls
+        currentFilter={filter}
+        currentSortOrder={sortOrder}
+        sortDirection={sortDirection}
+        onFilterChange={setFilter}
+        onSortChange={setSortOrder}
+        onSortDirectionChange={setSortDirection}
+      />
+      <TodoDNDManager groupedTodos={groupedTodos} />
+    </>
   );
 };
 
-export default TodoManagerContainer;
+export default TodoListManager;
