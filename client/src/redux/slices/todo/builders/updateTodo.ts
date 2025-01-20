@@ -7,10 +7,10 @@ export const updateTodoBuilder = (
 ) => {
   builder
     .addCase(updateTodoThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.updatedTodo = true;
     })
     .addCase(updateTodoThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.updatedTodo = false;
       const updatedTodo = action.payload;
       const index = state.todos.findIndex((todo) => todo.id === updatedTodo.id);
       if (index !== -1) {
@@ -18,7 +18,7 @@ export const updateTodoBuilder = (
       }
     })
     .addCase(updateTodoThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.updatedTodo = false;
       state.error = action.error.message || "Failed to update todo";
     });
 };

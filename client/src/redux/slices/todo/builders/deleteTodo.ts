@@ -7,14 +7,14 @@ export const deleteTodoBuilder = (
 ) => {
   builder
     .addCase(deleteTodoThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.deleteTodo = true;
     })
     .addCase(deleteTodoThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.deleteTodo = false;
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     })
     .addCase(deleteTodoThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.deleteTodo = false;
       state.error = action.error.message || "Failed to delete todo";
     });
 };

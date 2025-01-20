@@ -7,14 +7,14 @@ export const fetchTodosBuilder = (
 ) => {
   builder
     .addCase(fetchTodosThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.fetchTodos = true;
     })
     .addCase(fetchTodosThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.fetchTodos = false;
       state.todos = action.payload;
     })
     .addCase(fetchTodosThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.fetchTodos = false;
       state.error = action.error.message || "Failed to fetch todos";
     });
 };

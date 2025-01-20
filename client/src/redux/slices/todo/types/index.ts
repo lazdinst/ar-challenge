@@ -13,5 +13,5 @@ export interface TodoState {
   todos: TodoItem[];
   status: string;
   error: string | null;
-  loading: boolean;
+  loading: { [id: string]: boolean };
 }

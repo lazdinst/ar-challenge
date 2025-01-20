@@ -1,13 +1,15 @@
 import React from "react";
 import { StyledButton } from "./Button.style";
-
+import { StyledLoader } from "./Loader.style";
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   variant?: "primary" | "secondary" | "danger";
   size?: "small" | "medium" | "large";
   disabled?: boolean;
+  loading: boolean;
+  content?: React.ReactNode | string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +19,8 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   size = "medium",
   disabled = false,
+  loading,
+  content,
 }) => {
   return (
     <StyledButton
@@ -26,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
       size={size}
       disabled={disabled}
     >
-      {children}
+      {loading ? <StyledLoader size={size} /> : content ? content : children}
     </StyledButton>
   );
 };

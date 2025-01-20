@@ -8,7 +8,9 @@ const TodoManagerContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const todos = useSelector((state: RootState) => state.todo.todos);
-  const loading = useSelector((state: RootState) => state.todo.loading);
+  const loading = useSelector(
+    (state: RootState) => state.todo.loading.fetchTodos
+  );
   const error = useSelector((state: RootState) => state.todo.error);
 
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");

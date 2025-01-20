@@ -1,1 +1,1 @@
-export { type RootState, useAppDispatch } from "./store";
+export { type RootState, useAppDispatch, useAppSelector } from "./store";

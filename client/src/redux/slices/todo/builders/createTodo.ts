@@ -7,14 +7,14 @@ export const createTodoBuilder = (
 ) => {
   builder
     .addCase(createTodoThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.createTodo = true;
     })
     .addCase(createTodoThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.createTodo = false;
       state.todos.push(action.payload);
     })
     .addCase(createTodoThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.createTodo = false;
       state.error = action.error.message || "Failed to create todo";
     });
 };
