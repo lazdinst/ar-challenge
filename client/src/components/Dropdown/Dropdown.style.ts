@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-export const StyledSelect = styled.select`
+export const StyledSelect = styled.select<{ error: boolean }>`
   width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
+  border-color: ${({ error }) => (error ? "red" : "#ccc")};
   border-radius: 4px;
   background-color: #000;
   color: #ededed;

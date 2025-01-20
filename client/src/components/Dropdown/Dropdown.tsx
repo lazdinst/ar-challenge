@@ -6,6 +6,7 @@ interface DropdownProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   placeholder?: string;
+  error?: boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -13,9 +14,10 @@ const Dropdown: React.FC<DropdownProps> = ({
   value,
   onChange,
   placeholder,
+  error = false,
 }) => {
   return (
-    <StyledSelect value={value} onChange={onChange}>
+    <StyledSelect value={value} onChange={onChange} error={error}>
       {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
       {options.map((option) => (
         <StyledOption key={option.value} value={option.value}>
