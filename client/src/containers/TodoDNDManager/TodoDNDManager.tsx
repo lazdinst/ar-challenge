@@ -1,49 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../redux/store";
-import { fetchTodosThunk, updateTodoThunk } from "../../redux/slices/todo";
-import { useFilteredTodos } from "./hooks/useFilteredTodos";
-import { useSortedTodos } from "./hooks/useSortedTodos";
-import { RootState } from "../../redux/store";
-import TodoItem from "../TodoItem";
-import { CategoriesWrapper, CategoryColumn } from "./TodoDNDManager.style";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { updateTodoThunk } from "../../redux/slices/todo";
+import {
+  CategoryTitle,
+  CategoriesWrapper,
+  CategoryColumn,
+  CategoryColumnWrapper,
+} from "./TodoDNDManager.style";
 import { TodoItemType } from "../../redux/slices/todo/types";
-const TodoDNDManager: React.FC = () => {
+import TodoItem from "../TodoItem";
+
+interface TodoDNDManagerProps {
+  groupedTodos: Record<string, TodoItemType[]>;
+}
+
+const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
   const dispatch = useAppDispatch();
-
-  const todos = useSelector((state: RootState) => state.todo.todos);
-  const categories = useSelector(
-    (state: RootState) => state.category.categories
-  );
-
-  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
-  const [sortOrder, setSortOrder] = useState<"dueDate" | "creationDate">(
-    "dueDate"
-  );
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-
-  useEffect(() => {
-    dispatch(fetchTodosThunk());
-  }, [dispatch]);
-
-  const filteredTodos = useFilteredTodos(todos, filter);
-  const sortedTodos = useSortedTodos(filteredTodos, sortOrder, sortDirection);
-
-  const groupedTodos = categories.reduce<Record<string, TodoItemType[]>>(
-    (acc, category) => {
-      acc[category.name] = sortedTodos.filter(
-        (todo) => todo.category === category.name
-      );
-      return acc;
-    },
-    { Uncategorized: sortedTodos.filter((todo) => !todo.category) }
-  );
+  const todos = useAppSelector((state) => state.todo.todos);
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -64,29 +43,35 @@ const TodoDNDManager: React.FC = () => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <CategoriesWrapper>
-        {Object.entries(groupedTodos).map(([category, todos]) => (
+        {Object.entries(groupedTodos).map(([category, todoList]) => (
           <Droppable key={category} droppableId={category}>
             {(provided) => (
-              <CategoryColumn
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                <h2>{category}</h2>
-                {todos.map((todo, index) => (
-                  <Draggable key={todo.id} draggableId={todo.id} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <TodoItem todo={todo} />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </CategoryColumn>
+              <CategoryColumnWrapper>
+                <CategoryTitle>{category}</CategoryTitle>
+                <CategoryColumn
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {todoList.map((todo, index) => (
+                    <Draggable
+                      key={todo.id}
+                      draggableId={todo.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <TodoItem todo={todo} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </CategoryColumn>
+              </CategoryColumnWrapper>
             )}
           </Droppable>
         ))}
