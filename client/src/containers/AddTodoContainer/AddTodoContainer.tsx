@@ -13,7 +13,9 @@ const AddTodoContainer: React.FC = () => {
   const categories = useSelector(
     (state: RootState) => state.category.categories
   );
-  const loading = useSelector((state: RootState) => state.todo.loading);
+  const loading = useSelector(
+    (state: RootState) => state.todo.loading.createTodo
+  );
   const error = useSelector((state: RootState) => state.todo.error);
 
   const [title, setTitle] = useState("");
@@ -78,9 +80,12 @@ const AddTodoContainer: React.FC = () => {
         onChange={(e) => setCategory(e.target.value)}
         placeholder="Select a category"
       />
-      <Button type="submit" onClick={() => {}} disabled={loading}>
-        {loading ? "Adding..." : "Add Todo"}
-      </Button>
+      <Button
+        type="submit"
+        disabled={loading}
+        loading={loading}
+        content="Add Todo"
+      />
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
     </form>
   );

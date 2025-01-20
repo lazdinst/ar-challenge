@@ -22,7 +22,9 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
   const categories = useSelector(
     (state: RootState) => state.category.categories
   );
-  const loading = useSelector((state: RootState) => state.todo.loading);
+  const loading = useSelector(
+    (state: RootState) => state.todo.loading.updateTodo
+  );
   const error = useSelector((state: RootState) => state.todo.error);
 
   const {
@@ -60,8 +62,12 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
     await dispatch(updateTodoThunk(updatedTodo));
 
     if (!error) {
-      dispatch(closeModal(`editTodo-${id}`));
+      handleCloseModal();
     }
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal(`editTodo-${id}`));
   };
 
   return (
@@ -95,9 +101,21 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
           onChange={(e) => setCategory(e.target.value)}
           placeholder="Select a category"
         />
-        <Button type="submit" variant="primary" disabled={loading}>
-          {loading ? "Updating..." : "Update Todo"}
-        </Button>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={loading}
+          loading={loading}
+          content="Save"
+        />
+        <Button
+          type="button"
+          variant="danger"
+          disabled={loading}
+          loading={false}
+          content="cancel"
+          onClick={handleCloseModal}
+        />
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
       </form>
     </>

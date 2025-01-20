@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux";
 import { TodoItem as TodoType } from "../../redux/slices/todo/types";
 import {
   TodoItemWrapper,
@@ -27,7 +27,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     const updatedTodo = { ...todo, completed: !todo.completed };
     dispatch(updateTodoThunk(updatedTodo));
   };
-
+  const loading = useAppSelector((state) => state.todo.loading.deleteTodo);
   const handleEdit = () => {
     dispatch(openModal(`editTodo-${todo.id}`));
   };
@@ -55,12 +55,17 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         </TodoItemDate>
       </TodoContentWrapper>
       <ActionButtons>
-        <Button onClick={handleEdit}>
-          <Icon icon={faEdit} size="lg" />
-        </Button>
-        <Button onClick={handleDelete} variant="danger">
-          <Icon icon={faTrash} size="lg" />
-        </Button>
+        <Button
+          onClick={handleEdit}
+          loading={false}
+          content={<Icon icon={faEdit} size="lg" />}
+        />
+        <Button
+          onClick={handleDelete}
+          variant="danger"
+          loading={loading}
+          content={<Icon icon={faTrash} size="lg" />}
+        />
       </ActionButtons>
     </TodoItemWrapper>
   );
