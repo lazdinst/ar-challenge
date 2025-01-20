@@ -6,13 +6,13 @@ import {
 } from "../containers";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux";
-
+import { HomePageWrapper } from "./Home.style";
 const Home: React.FC = () => {
   const modals = useSelector((state: RootState) => state.ui.modals);
 
   return (
-    <div>
-      <h1>Todo List</h1>
+    <HomePageWrapper>
+      <div>Todo List</div>
       <AddTodoContainer />
       <TodoListManager />
       {Object.keys(modals).map((modalId) => {
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
         }
         return null;
       })}
-    </div>
+    </HomePageWrapper>
   );
 };
 

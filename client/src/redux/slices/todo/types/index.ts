@@ -1,4 +1,4 @@
-export interface TodoItem {
+export interface TodoItemType {
   id: string;
   title: string;
   description: string;
@@ -10,7 +10,7 @@ export interface TodoItem {
 }
 
 export interface TodoState {
-  todos: TodoItem[];
+  todos: TodoItemType[];
   status: string;
   error: string | null;
   loading: { [id: string]: boolean };
