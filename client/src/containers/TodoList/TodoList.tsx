@@ -1,5 +1,5 @@
 import React from "react";
-import { TodoItem as TodoType } from "../../redux/slices/todo/types";
+import { TodoItemType } from "../../redux/slices/todo/types";
 import TodoItem from "../TodoItem";
 import { TodoListWrapper, ControlsWrapper } from "./TodoList.style";
 import { filterOptions, sortOptions } from "../../constants";
@@ -7,7 +7,7 @@ import { Button, Icon, Dropdown } from "../../components";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 interface TodoListProps {
-  todos: TodoType[];
+  todos: TodoItemType[];
   onFilterChange: (filter: "all" | "active" | "completed") => void;
   onSortChange: (sortOrder: "dueDate" | "creationDate") => void;
   onSortDirectionChange: (direction: "asc" | "desc") => void;

@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { TodoItem } from "../types";
+import { TodoItemType } from "../types";
 
 export const updateTodoThunk = createAsyncThunk(
   "todo/updateTodo",
-  async (updatedTodo: TodoItem) => {
-    const response = await axios.put<TodoItem>(
+  async (updatedTodo: TodoItemType) => {
+    const response = await axios.put<TodoItemType>(
       `http://localhost:5000/api/todos/${updatedTodo.id}`,
       updatedTodo
     );
