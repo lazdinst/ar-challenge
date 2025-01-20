@@ -2,22 +2,28 @@ import React from "react";
 import { TodoItem as TodoType } from "../../redux/slices/todo/types";
 import TodoItem from "../TodoItem";
 import { TodoListWrapper, ControlsWrapper } from "./TodoList.style";
-import Dropdown from "../../components/Dropdown";
 import { filterOptions, sortOptions } from "../../constants";
+import { Button, Icon, Dropdown } from "../../components";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+
 interface TodoListProps {
   todos: TodoType[];
   onFilterChange: (filter: "all" | "active" | "completed") => void;
   onSortChange: (sortOrder: "dueDate" | "creationDate") => void;
+  onSortDirectionChange: (direction: "asc" | "desc") => void;
   currentFilter: "all" | "active" | "completed";
   currentSortOrder: "dueDate" | "creationDate";
+  sortDirection: "asc" | "desc";
 }
 
 const TodoList: React.FC<TodoListProps> = ({
   todos,
   onFilterChange,
   onSortChange,
+  onSortDirectionChange,
   currentFilter,
   currentSortOrder,
+  sortDirection,
 }) => {
   return (
     <TodoListWrapper>
@@ -40,6 +46,16 @@ const TodoList: React.FC<TodoListProps> = ({
             value={currentSortOrder}
             onChange={(e) =>
               onSortChange(e.target.value as "dueDate" | "creationDate")
+            }
+          />
+          <Button
+            onClick={() =>
+              onSortDirectionChange(sortDirection === "asc" ? "desc" : "asc")
+            }
+            content={
+              <Icon
+                icon={sortDirection === "asc" ? faChevronUp : faChevronDown}
+              />
             }
           />
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
@@ -17,20 +17,26 @@ const TodoManagerContainer: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<"dueDate" | "creationDate">(
     "dueDate"
   );
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     dispatch(fetchTodosThunk());
   }, [dispatch]);
 
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === "all") return true;
-    return filter === "active" ? !todo.completed : todo.completed;
-  });
+  const filteredTodos = useMemo(() => {
+    return todos.filter((todo) => {
+      if (filter === "all") return true;
+      return filter === "active" ? !todo.completed : todo.completed;
+    });
+  }, [todos, filter]);
 
-  const sortedTodos = [...filteredTodos].sort((a, b) => {
+  const sortedTodos = useMemo(() => {
     const key = sortOrder === "dueDate" ? "dueDate" : "createdAt";
-    return new Date(a[key]).getTime() - new Date(b[key]).getTime();
-  });
+    return [...filteredTodos].sort((a, b) => {
+      const diff = new Date(a[key]).getTime() - new Date(b[key]).getTime();
+      return sortDirection === "asc" ? diff : -diff;
+    });
+  }, [filteredTodos, sortOrder, sortDirection]);
 
   const handleFilterChange = (newFilter: "all" | "active" | "completed") => {
     setFilter(newFilter);
@@ -40,16 +46,28 @@ const TodoManagerContainer: React.FC = () => {
     setSortOrder(newSortOrder);
   };
 
+  const handleSortDirectionChange = () => {
+    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
+
   if (loading) return <div>Loading todos...</div>;
-  if (error) return <div>Error loading todos: {error}</div>;
+  if (error)
+    return (
+      <div>
+        <p>Error loading todos: {error}</p>
+        <button onClick={() => dispatch(fetchTodosThunk())}>Retry</button>
+      </div>
+    );
 
   return (
     <TodoList
       todos={sortedTodos}
       onFilterChange={handleFilterChange}
       onSortChange={handleSortChange}
+      onSortDirectionChange={handleSortDirectionChange}
       currentFilter={filter}
       currentSortOrder={sortOrder}
+      sortDirection={sortDirection}
     />
   );
 };
