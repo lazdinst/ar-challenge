@@ -1,12 +1,13 @@
+import { v4 as uuidv4 } from "uuid";
 import { Todo } from "../models/todo.model";
 import { todos } from "./todos.defaults";
 
 export const getTodos = (): Todo[] => todos;
 
 export const createTodo = (todo: Todo): Todo => {
-  //TODO:  uuid for this todo should be generated here
-  todos.push(todo);
-  return todo;
+  const newTodo = { ...todo, id: uuidv4() };
+  todos.push(newTodo);
+  return newTodo;
 };
 
 export const updateTodo = (id: string, updatedTodo: Todo): Todo | null => {
