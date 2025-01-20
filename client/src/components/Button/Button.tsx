@@ -8,7 +8,7 @@ interface ButtonProps {
   variant?: "primary" | "secondary" | "danger";
   size?: "small" | "medium" | "large";
   disabled?: boolean;
-  loading: boolean;
+  loading?: boolean;
   content?: React.ReactNode | string;
 }
 

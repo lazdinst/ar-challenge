@@ -37,6 +37,21 @@ export const ControlsWrapper = styled.div`
       margin-right: 0.5rem;
       font-weight: bold;
     }
+
+    button {
+      margin-left: 0.5rem;
+      padding: 0.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        color: #007bff;
+      }
+    }
   }
 `;
 
