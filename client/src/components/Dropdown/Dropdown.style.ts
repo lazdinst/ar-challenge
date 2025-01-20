@@ -21,3 +21,9 @@ export const StyledOption = styled.option`
   padding: 0.5rem;
   font-size: 1rem;
 `;
+
+export const StyledLabel = styled.label`
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #ededed;
+`;
