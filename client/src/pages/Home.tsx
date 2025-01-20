@@ -1,21 +1,20 @@
 import React from "react";
 import {
   AddTodoContainer,
-  // TodoListManager,
+  TodoListManager,
   EditTodoModal,
 } from "../containers";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux";
-import TodoDNDManager from "../containers/TodoDNDManager/TodoDNDManager";
-
+import { HomePageWrapper } from "./Home.style";
 const Home: React.FC = () => {
   const modals = useSelector((state: RootState) => state.ui.modals);
 
   return (
-    <div>
-      <h1>Todo List</h1>
+    <HomePageWrapper>
+      <div>Todo List</div>
       <AddTodoContainer />
-      {/* <TodoListManager /> */}
+      <TodoListManager />
       {Object.keys(modals).map((modalId) => {
         if (modalId.startsWith("editTodo-")) {
           const todoId = modalId.replace("editTodo-", "");
@@ -23,8 +22,7 @@ const Home: React.FC = () => {
         }
         return null;
       })}
-      <TodoDNDManager />
-    </div>
+    </HomePageWrapper>
   );
 };
 
