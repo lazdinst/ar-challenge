@@ -14,6 +14,7 @@ import {
   DeleteCategoryResponse,
   ErrorResponse,
 } from "../definitions";
+import { getTodos } from "../services/todo.service";
 
 export const getCategoriesController = (req: Request, res: Response): void => {
   const categories = getCategories();
@@ -72,7 +73,7 @@ export const deleteCategoryController = (req: Request, res: Response): void => {
     return;
   }
 
-  const { success, updatedTodos } = deleteCategory(id);
+  const { success } = deleteCategory(id);
 
   if (!success) {
     const error: ErrorResponse = {
@@ -83,6 +84,8 @@ export const deleteCategoryController = (req: Request, res: Response): void => {
     return;
   }
 
-  res.status(200).json(updatedTodos);
+  res
+    .status(200)
+    .json({ success, todos: getTodos(), categories: getCategories() });
   return;
 };

@@ -12,7 +12,7 @@ export const CategoryInputWrapper = styled.div<{ $error: boolean }>`
     font-size: 1.25rem;
   }
   button {
-    display: flex;
+    display: none;
     margin-left: 0.5rem;
     margin-bottom: 1rem;
   }

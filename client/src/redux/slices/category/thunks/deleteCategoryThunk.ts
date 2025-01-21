@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { TodoItemType } from "../../todo/types";
+import { Category } from "../types";
 import { updateTodo } from "../../todo";
 
 export const deleteCategoryThunk = createAsyncThunk<
-  { categoryId: string },
+  { categories: Category[] },
   string,
   { rejectValue: string }
 >(
@@ -21,15 +22,21 @@ export const deleteCategoryThunk = createAsyncThunk<
       }
 
       const data = await response.json();
-      console.log(data);
+
+      const { success, todos, categories } = data;
+
+      if (!success) {
+        throw new Error("Failed to delete category");
+      }
+
       // Dispatch updateTodo for each updated todo
-      if (data.updatedTodos) {
-        data.updatedTodos.forEach((todo: TodoItemType) => {
+      if (todos) {
+        todos.forEach((todo: TodoItemType) => {
           dispatch(updateTodo(todo));
         });
       }
 
-      return { categoryId };
+      return { categories };
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

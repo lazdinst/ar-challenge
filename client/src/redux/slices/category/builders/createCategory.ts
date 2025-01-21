@@ -7,15 +7,15 @@ export const createCategoryBuilder = (
 ) => {
   builder
     .addCase(createCategoryThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.createCategory = true;
       state.error = null;
     })
     .addCase(createCategoryThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.createCategory = false;
       state.categories.push(action.payload);
     })
     .addCase(createCategoryThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.createCategory = false;
       state.error = action.error.message || "Failed to create category";
     });
 };

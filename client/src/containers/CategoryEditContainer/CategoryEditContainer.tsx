@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { updateCategoryThunk } from "../../redux/slices/category";
+import {
+  updateCategoryThunk,
+  deleteCategoryThunk,
+} from "../../redux/slices/category";
 import Input from "../../components/Input";
 import { useDebounce } from "../../hooks";
 import { CategoryInputWrapper } from "./CategoryEditContainer.style";
@@ -71,6 +74,17 @@ const CategoryEditContainer: React.FC<CategoryEditContainerProps> = ({
     }
   };
 
+  const handleDeleteCategory = () => {
+    const uncategorized = categories.find(
+      (cat) => cat.name === "Uncategorized"
+    );
+    if (uncategorized && uncategorized.id === id) {
+      setError(true);
+      return;
+    }
+    dispatch(deleteCategoryThunk(id));
+  };
+
   return (
     <CategoryInputWrapper $error={error}>
       <Input
@@ -81,7 +95,7 @@ const CategoryEditContainer: React.FC<CategoryEditContainerProps> = ({
         error={error}
       />
       <Button
-        onClick={() => {}}
+        onClick={handleDeleteCategory}
         disabled={error}
         variant="danger"
         content={<Icon icon={faTrash} />}

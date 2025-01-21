@@ -8,6 +8,11 @@ export interface Category {
 
 export interface CategoryState {
   categories: Category[];
-  loading: boolean;
+  loading: {
+    fetchCategories: boolean;
+    createCategory: boolean;
+    updateCategory: boolean;
+    deleteCategory: boolean;
+  };
   error: string | null;
 }
