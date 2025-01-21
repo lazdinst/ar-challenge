@@ -33,7 +33,6 @@ const CategoryCreateContainer: React.FC = () => {
       setError(validationError);
       return;
     }
-    console.log("here");
     try {
       await dispatch(
         createCategoryThunk({ name: categoryName.trim(), color: categoryColor })
