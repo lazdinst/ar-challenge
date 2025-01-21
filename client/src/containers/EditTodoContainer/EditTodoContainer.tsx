@@ -6,7 +6,7 @@ import { closeModal } from "../../redux/slices/ui";
 import Input from "../../components/Input";
 import Dropdown from "../../components/Dropdown";
 import Button from "../../components/Button";
-import { TodoItem } from "../../redux/slices/todo/types";
+import { TodoItemType } from "../../redux/slices/todo/types";
 
 interface EditTodoContainerProps {
   id: string;
@@ -51,7 +51,7 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
       return;
     }
 
-    const updatedTodo: TodoItem = {
+    const updatedTodo: TodoItemType = {
       ...todo!,
       title,
       description,
@@ -107,14 +107,6 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
           disabled={loading}
           loading={loading}
           content="Save"
-        />
-        <Button
-          type="button"
-          variant="danger"
-          disabled={loading}
-          loading={false}
-          content="cancel"
-          onClick={handleCloseModal}
         />
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
       </form>

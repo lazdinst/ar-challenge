@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../redux";
-import { TodoItem as TodoType } from "../../redux/slices/todo/types";
+import { TodoItemType } from "../../redux/slices/todo/types";
 import {
   TodoItemWrapper,
   CheckboxWrapper,
@@ -17,7 +17,7 @@ import { Button, Icon } from "../../components";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface TodoItemProps {
-  todo: TodoType;
+  todo: TodoItemType;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
