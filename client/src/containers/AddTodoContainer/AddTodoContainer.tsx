@@ -12,7 +12,6 @@ const AddTodoContainer: React.FC = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category.categories);
   const loading = useAppSelector((state) => state.todo.loading.createTodo);
-  const error = useAppSelector((state) => state.todo.error);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -81,7 +80,6 @@ const AddTodoContainer: React.FC = () => {
         loading={loading}
         content="Add Todo"
       />
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
     </FormWrapper>
   );
 };
