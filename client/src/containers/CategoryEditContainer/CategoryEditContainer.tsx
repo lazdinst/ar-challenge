@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { updateCategoryThunk } from "../../redux/slices/category";
+import {
+  updateCategoryThunk,
+  deleteCategoryThunk,
+} from "../../redux/slices/category";
 import Input from "../../components/Input";
 import { useDebounce } from "../../hooks";
 import { CategoryInputWrapper } from "./CategoryEditContainer.style";
-
+import { Button, Icon } from "../../components";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 interface CategoryEditContainerProps {
   id: string;
 }
@@ -70,6 +74,17 @@ const CategoryEditContainer: React.FC<CategoryEditContainerProps> = ({
     }
   };
 
+  const handleDeleteCategory = () => {
+    const uncategorized = categories.find(
+      (cat) => cat.name === "Uncategorized"
+    );
+    if (uncategorized && uncategorized.id === id) {
+      setError(true);
+      return;
+    }
+    dispatch(deleteCategoryThunk(id));
+  };
+
   return (
     <CategoryInputWrapper $error={error}>
       <Input
@@ -78,6 +93,12 @@ const CategoryEditContainer: React.FC<CategoryEditContainerProps> = ({
         onBlur={handleBlur}
         placeholder="Enter category name"
         error={error}
+      />
+      <Button
+        onClick={handleDeleteCategory}
+        disabled={error}
+        variant="danger"
+        content={<Icon icon={faTrash} />}
       />
     </CategoryInputWrapper>
   );

@@ -7,15 +7,15 @@ export const fetchCategoriesBuilder = (
 ) => {
   builder
     .addCase(fetchCategoriesThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.fetchCategories = true;
       state.error = null;
     })
     .addCase(fetchCategoriesThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.fetchCategories = false;
       state.categories = action.payload;
     })
     .addCase(fetchCategoriesThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.fetchCategories = false;
       state.error = action.error.message || "Failed to fetch categories";
     });
 };
