@@ -38,7 +38,7 @@ export const createCategoryController = (req: Request, res: Response): void => {
   };
 
   const category = createCategory(newCategory);
-  res.status(201).json({ data: category });
+  res.status(201).json(category);
   return;
 };
 

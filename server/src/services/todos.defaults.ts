@@ -1,5 +1,10 @@
 import { Todo } from "../models/todo.model";
+import { categories } from "./categories.defaults";
 import { v4 as uuidv4 } from "uuid";
+
+const workCategoryId = categories.find((cat) => cat.name === "Work")?.id || "";
+const personalCategoryId =
+  categories.find((cat) => cat.name === "Personal")?.id || "";
 
 export const todos: Todo[] = [
   {
@@ -8,19 +13,19 @@ export const todos: Todo[] = [
     description:
       "Finish building the frontend for the todo app using React and Redux.",
     dueDate: "2025-01-20",
-    category: "1",
+    category: workCategoryId,
     completed: false,
-    createdAt: "2025-01-15T10:00:00Z",
-    updatedAt: "2025-01-15T12:00:00Z",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: uuidv4(),
     title: "Grocery Shopping",
     description: "Buy vegetables, fruits, and other household items.",
     dueDate: "2025-01-18",
-    category: "2",
+    category: personalCategoryId,
     completed: true,
-    createdAt: "2025-01-14T08:30:00Z",
-    updatedAt: "2025-01-15T09:00:00Z",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
 ];

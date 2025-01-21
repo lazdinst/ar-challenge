@@ -51,7 +51,6 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
     if (!handleValidateFields()) {
       return;
     }
-
     const updatedTodo: TodoItemType = {
       ...todo!,
       title,
@@ -59,7 +58,6 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
       dueDate,
       category,
     };
-
     await dispatch(updateTodoThunk(updatedTodo));
 
     if (!error) {
