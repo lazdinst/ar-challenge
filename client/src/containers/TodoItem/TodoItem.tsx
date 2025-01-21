@@ -8,6 +8,7 @@ import {
   TodoContentWrapper,
   TodoItemDate,
   TodoFooter,
+  TodoTitle,
 } from "./TodoItem.style";
 import { updateTodoThunk } from "../../redux/slices/todo/thunks";
 import { openModal } from "../../redux/slices/ui/ui";
@@ -40,7 +41,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
               onChange={handleToggleComplete}
             />
           </CheckboxWrapper>
-          <h3 onClick={handleEdit}>{todo.title}</h3>
+          <TodoTitle onClick={handleEdit}>{todo.title}</TodoTitle>
         </TodoContent>
         <TodoFooter>
           <TodoItemDate $isOverDue={isOverdue}>
