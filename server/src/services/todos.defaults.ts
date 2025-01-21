@@ -1,12 +1,12 @@
 import { Todo } from "../models/todo.model";
-import { categories } from "./categories.defaults";
 import { v4 as uuidv4 } from "uuid";
+import { categories } from "../state";
 
 const workCategoryId = categories.find((cat) => cat.name === "Work")?.id || "";
 const personalCategoryId =
   categories.find((cat) => cat.name === "Personal")?.id || "";
 
-export const todos: Todo[] = [
+export const initialTodos: Todo[] = [
   {
     id: uuidv4(),
     title: "Complete React Project",

@@ -1,7 +1,7 @@
 import { Category } from "../models/category.model";
-import { categories } from "./categories.defaults";
-import { todos, updateTodo } from "./todo.service";
+import { updateTodo } from "./todo.service";
 import { Todo } from "../models/todo.model";
+import { todos, categories } from "../state";
 
 export const getCategories = (): Category[] => categories;
 

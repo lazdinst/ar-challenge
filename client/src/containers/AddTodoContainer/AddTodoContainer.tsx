@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useAppSelector, useAppDispatch } from "../../redux/store";
-import { fetchCategoriesThunk } from "../../redux/slices/category";
+import React, { useState } from "react";
+import { useAppSelector } from "../../redux/store";
 import Input from "../../components/Input/Input";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
@@ -13,7 +12,6 @@ import {
 } from "./AddTodoContainer.style";
 
 const AddTodoContainer: React.FC = () => {
-  const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category.categories);
   const loading = useAppSelector((state) => state.todo.loading.createTodo);
 
@@ -31,10 +29,6 @@ const AddTodoContainer: React.FC = () => {
 
   const { fieldErrors, validateFields } = useValidateFields();
   const { handleSubmit } = useHandleSubmit({ validateFields, resetForm });
-
-  useEffect(() => {
-    dispatch(fetchCategoriesThunk());
-  }, [dispatch]);
 
   return (
     <FormWrapper
