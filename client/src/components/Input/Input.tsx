@@ -11,6 +11,7 @@ interface InputProps {
   error?: boolean;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   error = false,
   onBlur,
   onFocus,
+  onKeyDown,
 }) => {
   return (
     <InputWrapper>
@@ -36,6 +38,7 @@ const Input: React.FC<InputProps> = ({
         onFocus={onFocus}
         placeholder={placeholder}
         $error={error}
+        onKeyDown={onKeyDown}
       />
     </InputWrapper>
   );

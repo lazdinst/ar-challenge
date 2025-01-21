@@ -13,5 +13,9 @@ export const CategoryCreateWrapper = styled.div<{ $error: boolean }>`
     padding: 0.5rem;
     background-color: transparent;
     font-size: 1.25rem;
+    &:focus {
+      border: 1px solid ${({ $error }) => ($error ? "red" : "transparent")};
+      outline: none;
+    }
   }
 `;

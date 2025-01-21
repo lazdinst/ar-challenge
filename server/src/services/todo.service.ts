@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Todo } from "../models/todo.model";
-import { todos } from "./todos.defaults";
+import { todos } from "../state";
 
 export const getTodos = (): Todo[] => todos;
 

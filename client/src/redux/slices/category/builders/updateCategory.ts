@@ -7,11 +7,11 @@ export const updateCategoryBuilder = (
 ) => {
   builder
     .addCase(updateCategoryThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.updateCategory = true;
       state.error = null;
     })
     .addCase(updateCategoryThunk.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading.updateCategory = false;
       const index = state.categories.findIndex(
         (category) => category.id === action.payload.id
       );
@@ -20,7 +20,7 @@ export const updateCategoryBuilder = (
       }
     })
     .addCase(updateCategoryThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.updateCategory = false;
       state.error = action.error.message || "Failed to update category";
     });
 };

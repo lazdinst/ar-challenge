@@ -4,7 +4,7 @@ import {
   Droppable,
   Draggable,
   DropResult,
-} from "react-beautiful-dnd";
+} from "@hello-pangea/dnd";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { updateTodoThunk } from "../../redux/slices/todo";
 import {

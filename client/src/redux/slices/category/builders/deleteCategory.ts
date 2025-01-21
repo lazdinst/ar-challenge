@@ -7,17 +7,15 @@ export const deleteCategoryBuilder = (
 ) => {
   builder
     .addCase(deleteCategoryThunk.pending, (state) => {
-      state.loading = true;
+      state.loading.deleteCategory = true;
       state.error = null;
     })
     .addCase(deleteCategoryThunk.fulfilled, (state, action) => {
-      state.loading = false;
-      state.categories = state.categories.filter(
-        (category) => category.id !== action.payload
-      );
+      state.loading.deleteCategory = false;
+      state.categories = action.payload.categories;
     })
     .addCase(deleteCategoryThunk.rejected, (state, action) => {
-      state.loading = false;
+      state.loading.deleteCategory = false;
       state.error = action.error.message || "Failed to delete category";
     });
 };

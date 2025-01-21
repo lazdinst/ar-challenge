@@ -65,3 +65,7 @@ export const TodoContent = styled.div`
   flex: 1;
   display: flex;
 `;
+
+export const TodoTitle = styled.h3`
+  margin: 0;
+`;

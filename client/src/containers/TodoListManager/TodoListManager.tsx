@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
+import { fetchCategoriesThunk } from "../../redux/slices/category/thunks";
 import TodosControls from "../TodosControls";
 import TodoDNDManager from "../TodoDNDManager";
 
@@ -15,7 +16,8 @@ const TodoListManager: React.FC = () => {
   const loading = useSelector(
     (state: RootState) => state.todo.loading.fetchTodos
   );
-  const error = useSelector((state: RootState) => state.todo.error);
+  const todoError = useSelector((state: RootState) => state.todo.error);
+  const categoryError = useSelector((state: RootState) => state.category.error);
 
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sortOrder, setSortOrder] = useState<"dueDate" | "creationDate">(
@@ -23,9 +25,14 @@ const TodoListManager: React.FC = () => {
   );
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  useEffect(() => {
+  const handleFetch = useCallback(() => {
     dispatch(fetchTodosThunk());
+    dispatch(fetchCategoriesThunk());
   }, [dispatch]);
+
+  useEffect(() => {
+    handleFetch();
+  }, [dispatch, handleFetch]);
 
   const filteredTodos = useMemo(() => {
     return todos.filter((todo) => {
@@ -52,11 +59,13 @@ const TodoListManager: React.FC = () => {
   }, [sortedTodos, categories]);
 
   if (loading) return <div>Loading todos...</div>;
-  if (error)
+  if (todoError || categoryError)
     return (
       <div>
-        <p>Error loading todos: {error}</p>
-        <button onClick={() => dispatch(fetchTodosThunk())}>Retry</button>
+        <p>
+          Error loading data: {todoError} {categoryError}
+        </p>
+        <button onClick={() => handleFetch()}>Retry</button>
       </div>
     );
 

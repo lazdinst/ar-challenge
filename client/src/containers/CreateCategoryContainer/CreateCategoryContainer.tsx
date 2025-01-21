@@ -46,6 +46,12 @@ const CategoryCreateContainer: React.FC = () => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleCreateCategory();
+    }
+  };
+
   return (
     <CategoryCreateWrapper $error={!!error || !!apiError}>
       <Input
@@ -55,10 +61,11 @@ const CategoryCreateContainer: React.FC = () => {
           setError(null);
         }}
         placeholder="New Category Name"
+        onKeyDown={handleKeyDown}
       />
+      <Button onClick={handleCreateCategory}>Add</Button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {apiError && !error && <p style={{ color: "red" }}>{apiError}</p>}
-      <Button onClick={handleCreateCategory}>Add</Button>
     </CategoryCreateWrapper>
   );
 };
