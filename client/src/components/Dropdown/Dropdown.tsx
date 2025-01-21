@@ -1,5 +1,10 @@
 import React from "react";
-import { StyledSelect, StyledOption, StyledLabel } from "./Dropdown.style";
+import {
+  StyledSelect,
+  StyledOption,
+  StyledLabel,
+  SelectWrapper,
+} from "./Dropdown.style";
 
 interface DropdownProps {
   label?: string;
@@ -19,7 +24,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   label,
 }) => {
   return (
-    <>
+    <SelectWrapper>
       {label && <StyledLabel htmlFor={label}>{label}</StyledLabel>}
       <StyledSelect value={value} onChange={onChange} $error={error}>
         {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
@@ -29,7 +34,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </StyledOption>
         ))}
       </StyledSelect>
-    </>
+    </SelectWrapper>
   );
 };
 

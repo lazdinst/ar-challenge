@@ -28,8 +28,8 @@ const TodosControls: React.FC<TodosControlsProps> = ({
   return (
     <ControlsWrapper>
       <FilterWrapper>
-        <label>Filter:</label>
         <Dropdown
+          label="Filter"
           options={filterOptions}
           value={currentFilter}
           onChange={(e) =>
@@ -38,8 +38,8 @@ const TodosControls: React.FC<TodosControlsProps> = ({
         />
       </FilterWrapper>
       <SortWrapper>
-        <label>Sort by:</label>
         <Dropdown
+          label="Sort by"
           options={sortOptions}
           value={currentSortOrder}
           onChange={(e) =>

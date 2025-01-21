@@ -8,6 +8,7 @@ export const fetchTodosBuilder = (
   builder
     .addCase(fetchTodosThunk.pending, (state) => {
       state.loading.fetchTodos = true;
+      state.error = null;
     })
     .addCase(fetchTodosThunk.fulfilled, (state, action) => {
       state.loading.fetchTodos = false;
