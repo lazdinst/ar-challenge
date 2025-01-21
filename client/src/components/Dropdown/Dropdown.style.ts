@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const SelectWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+`;
+
 export const StyledSelect = styled.select<{ $error: boolean }>`
   width: 100%;
   padding: 0.5rem;
@@ -23,7 +29,7 @@ export const StyledOption = styled.option`
 `;
 
 export const StyledLabel = styled.label`
-  font-size: 1rem;
   margin-bottom: 0.5rem;
+  font-size: 1rem;
   color: #ededed;
 `;

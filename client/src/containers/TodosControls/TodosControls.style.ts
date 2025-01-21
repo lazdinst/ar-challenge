@@ -23,7 +23,8 @@ export const FilterWrapper = styled.div`
 
 export const SortWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: flex-end;
   gap: 0.5rem;
   white-space: nowrap;
 
@@ -33,5 +34,6 @@ export const SortWrapper = styled.div`
 
   button {
     margin-left: 0.5rem;
+    margin-bottom: 1rem;
   }
 `;

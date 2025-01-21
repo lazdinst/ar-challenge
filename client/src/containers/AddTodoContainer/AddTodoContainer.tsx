@@ -6,7 +6,11 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import { useValidateFields } from "./hooks/useValidateFields";
 import { useHandleSubmit } from "./hooks/useHandleSubmit";
-import { FormWrapper, FieldWrapper } from "./AddTodoContainer.style";
+import {
+  FormWrapper,
+  FieldWrapper,
+  ButtonWrapper,
+} from "./AddTodoContainer.style";
 
 const AddTodoContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,20 +42,24 @@ const AddTodoContainer: React.FC = () => {
         handleSubmit(e, { title, description, dueDate, category });
       }}
     >
-      <Input
-        label="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter todo title"
-        error={fieldErrors.title}
-      />
-      <Input
-        label="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Enter todo description"
-        error={fieldErrors.description}
-      />
+      <FieldWrapper>
+        <Input
+          label="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter todo title"
+          error={fieldErrors.title}
+        />
+      </FieldWrapper>
+      <FieldWrapper>
+        <Input
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Enter todo description"
+          error={fieldErrors.description}
+        />
+      </FieldWrapper>
       <FieldWrapper>
         <Input
           label="Due Date"
@@ -74,12 +82,14 @@ const AddTodoContainer: React.FC = () => {
           error={fieldErrors.category}
         />
       </FieldWrapper>
-      <Button
-        type="submit"
-        disabled={loading}
-        loading={loading}
-        content="Add Todo"
-      />
+      <ButtonWrapper>
+        <Button
+          type="submit"
+          disabled={loading}
+          loading={loading}
+          content="Add Todo"
+        />
+      </ButtonWrapper>
     </FormWrapper>
   );
 };
