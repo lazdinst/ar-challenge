@@ -8,7 +8,7 @@ export const todos: Todo[] = [
     description:
       "Finish building the frontend for the todo app using React and Redux.",
     dueDate: "2025-01-20",
-    category: "Work",
+    category: "1",
     completed: false,
     createdAt: "2025-01-15T10:00:00Z",
     updatedAt: "2025-01-15T12:00:00Z",
@@ -18,7 +18,7 @@ export const todos: Todo[] = [
     title: "Grocery Shopping",
     description: "Buy vegetables, fruits, and other household items.",
     dueDate: "2025-01-18",
-    category: "Personal",
+    category: "2",
     completed: true,
     createdAt: "2025-01-14T08:30:00Z",
     updatedAt: "2025-01-15T09:00:00Z",
