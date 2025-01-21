@@ -12,11 +12,10 @@ export const StyledLabel = styled.label`
   color: #ededed;
 `;
 
-export const StyledInput = styled.input<{ error: boolean }>`
+export const StyledInput = styled.input<{ $error: boolean }>`
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-color: ${({ error }) => (error ? "red" : "#ccc")};
+  border: 1px solid ${({ $error }) => ($error ? "red" : "#ccc")};
   border-radius: 4px;
   width: 100%;
   background-color: #000;

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { updateTodoThunk } from "../../redux/slices/todo";
+import { updateTodoThunk, deleteTodoThunk } from "../../redux/slices/todo";
 import { closeModal } from "../../redux/slices/ui";
-import Input from "../../components/Input";
-import Dropdown from "../../components/Dropdown";
-import Button from "../../components/Button";
-import { TodoItem } from "../../redux/slices/todo/types";
+import { Button, Input, Dropdown, Icon } from "../../components";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
+import { TodoItemType } from "../../redux/slices/todo/types";
+import { useValidateFields } from "../AddTodoContainer/hooks/useValidateFields";
+import { FormContainer, FormActions } from "./EditTodoContainer.style";
 interface EditTodoContainerProps {
   id: string;
 }
@@ -26,16 +27,17 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
     (state: RootState) => state.todo.loading.updateTodo
   );
   const error = useSelector((state: RootState) => state.todo.error);
+  const { fieldErrors, validateFields } = useValidateFields();
 
   const {
     title: initialTitle = "",
     description: initialDescription = "",
     dueDate: initialDueDate = "",
-    category: initialCategoryName = "",
+    category: initialCategoryId = "",
   } = todo || {};
 
   const initialCategory = categories.find(
-    (cat) => cat.name === initialCategoryName
+    (cat) => cat.id === initialCategoryId
   )?.id;
 
   const [title, setTitle] = useState(initialTitle);
@@ -46,19 +48,16 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!title || !description || !dueDate || !category) {
-      alert("All fields are required!");
+    if (!handleValidateFields()) {
       return;
     }
-
-    const updatedTodo: TodoItem = {
+    const updatedTodo: TodoItemType = {
       ...todo!,
       title,
       description,
       dueDate,
       category,
     };
-
     await dispatch(updateTodoThunk(updatedTodo));
 
     if (!error) {
@@ -66,41 +65,69 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (todo) {
+      await dispatch(deleteTodoThunk(todo.id));
+
+      if (!error) {
+        handleCloseModal();
+      }
+    }
+  };
+
+  const handleValidateFields = () => {
+    const fields = {
+      title,
+      description,
+      dueDate,
+      category,
+    };
+
+    if (!validateFields(fields)) {
+      return false;
+    }
+    return true;
+  };
+
   const handleCloseModal = () => {
     dispatch(closeModal(`editTodo-${id}`));
   };
 
   return (
-    <>
-      <h2>Edit Todo</h2>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter todo title"
-        />
-        <Input
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Enter todo description"
-        />
-        <Input
-          label="Due Date"
-          type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-        />
-        <Dropdown
-          options={categories.map((option) => ({
-            value: option.id,
-            label: option.name,
-          }))}
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          placeholder="Select a category"
-        />
+    <FormContainer onSubmit={handleSubmit}>
+      <Input
+        label="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Enter todo title"
+        error={fieldErrors.title}
+      />
+      <Input
+        label="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Enter todo description"
+        error={fieldErrors.description}
+      />
+      <Input
+        label="Due Date"
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+        error={fieldErrors.dueDate}
+      />
+      <Dropdown
+        label="Category"
+        options={categories.map((option) => ({
+          value: option.id,
+          label: option.name,
+        }))}
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        placeholder="Select a category"
+        error={fieldErrors.category}
+      />
+      <FormActions>
         <Button
           type="submit"
           variant="primary"
@@ -112,13 +139,12 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
           type="button"
           variant="danger"
           disabled={loading}
-          loading={false}
-          content="cancel"
-          onClick={handleCloseModal}
+          loading={loading}
+          content={<Icon icon={faTrash} size="lg" />}
+          onClick={handleDelete}
         />
-        {error && <p style={{ color: "red" }}>Error: {error}</p>}
-      </form>
-    </>
+      </FormActions>
+    </FormContainer>
   );
 };
 

@@ -1,7 +1,8 @@
 import React from "react";
-import { StyledSelect, StyledOption } from "./Dropdown.style";
+import { StyledSelect, StyledOption, StyledLabel } from "./Dropdown.style";
 
 interface DropdownProps {
+  label?: string;
   options: { value: string; label: string }[];
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -15,16 +16,20 @@ const Dropdown: React.FC<DropdownProps> = ({
   onChange,
   placeholder,
   error = false,
+  label,
 }) => {
   return (
-    <StyledSelect value={value} onChange={onChange} error={error}>
-      {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
-      {options.map((option) => (
-        <StyledOption key={option.value} value={option.value}>
-          {option.label}
-        </StyledOption>
-      ))}
-    </StyledSelect>
+    <>
+      {label && <StyledLabel htmlFor={label}>{label}</StyledLabel>}
+      <StyledSelect value={value} onChange={onChange} $error={error}>
+        {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
+        {options.map((option) => (
+          <StyledOption key={option.value} value={option.value}>
+            {option.label}
+          </StyledOption>
+        ))}
+      </StyledSelect>
+    </>
   );
 };
 

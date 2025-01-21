@@ -12,7 +12,7 @@ export const CategoryColumn = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;

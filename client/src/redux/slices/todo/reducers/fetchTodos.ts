@@ -1,9 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { TodoState, TodoItem } from "../types";
+import { TodoState, TodoItemType } from "../types";
 
 export const fetchTodos = (
   state: TodoState,
-  action: PayloadAction<TodoItem[]>
+  action: PayloadAction<TodoItemType[]>
 ) => {
   state.todos = action.payload;
 };

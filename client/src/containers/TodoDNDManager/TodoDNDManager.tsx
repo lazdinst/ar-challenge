@@ -8,13 +8,15 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { updateTodoThunk } from "../../redux/slices/todo";
 import {
-  CategoryTitle,
   CategoriesWrapper,
   CategoryColumn,
   CategoryColumnWrapper,
 } from "./TodoDNDManager.style";
 import { TodoItemType } from "../../redux/slices/todo/types";
 import TodoItem from "../TodoItem";
+
+import CategoryEditContainer from "../CategoryEditContainer";
+import CategoryCreateContainer from "../CreateCategoryContainer"; // Import your new category creation component
 
 interface TodoDNDManagerProps {
   groupedTodos: Record<string, TodoItemType[]>;
@@ -35,7 +37,6 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
       console.error("Todo not found for ID:", draggableId);
       return;
     }
-
     const updatedTodo = { ...todo, category: newCategory };
     dispatch(updateTodoThunk(updatedTodo));
   };
@@ -47,7 +48,7 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
           <Droppable key={category} droppableId={category}>
             {(provided) => (
               <CategoryColumnWrapper>
-                <CategoryTitle>{category}</CategoryTitle>
+                <CategoryEditContainer id={category} />
                 <CategoryColumn
                   ref={provided.innerRef}
                   {...provided.droppableProps}
@@ -75,6 +76,9 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
             )}
           </Droppable>
         ))}
+        <CategoryColumnWrapper>
+          <CategoryCreateContainer />
+        </CategoryColumnWrapper>
       </CategoriesWrapper>
     </DragDropContext>
   );

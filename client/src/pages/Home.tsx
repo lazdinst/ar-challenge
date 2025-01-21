@@ -12,7 +12,6 @@ const Home: React.FC = () => {
 
   return (
     <HomePageWrapper>
-      <div>Todo List</div>
       <AddTodoContainer />
       <TodoListManager />
       {Object.keys(modals).map((modalId) => {

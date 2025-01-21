@@ -6,6 +6,7 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import { useValidateFields } from "./hooks/useValidateFields";
 import { useHandleSubmit } from "./hooks/useHandleSubmit";
+import { FormWrapper, FieldWrapper } from "./AddTodoContainer.style";
 
 const AddTodoContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,12 +34,11 @@ const AddTodoContainer: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <form
+    <FormWrapper
       onSubmit={(e) => {
         handleSubmit(e, { title, description, dueDate, category });
       }}
     >
-      <h2>Add New Todo</h2>
       <Input
         label="Title"
         value={title}
@@ -46,8 +46,6 @@ const AddTodoContainer: React.FC = () => {
         placeholder="Enter todo title"
         error={fieldErrors.title}
       />
-      {fieldErrors.title && <p style={{ color: "red" }}>Title is required</p>}
-
       <Input
         label="Description"
         value={description}
@@ -55,32 +53,28 @@ const AddTodoContainer: React.FC = () => {
         placeholder="Enter todo description"
         error={fieldErrors.description}
       />
-      {fieldErrors.description && (
-        <p style={{ color: "red" }}>Description is required</p>
-      )}
-
-      <Input
-        label="Due Date"
-        type="date"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
-        error={fieldErrors.dueDate}
-      />
-      {fieldErrors.dueDate && (
-        <p style={{ color: "red" }}>Due Date is required</p>
-      )}
-
-      <Dropdown
-        options={categories.map((cat) => ({ value: cat.id, label: cat.name }))}
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        placeholder="Select a category"
-        error={fieldErrors.category}
-      />
-      {fieldErrors.category && (
-        <p style={{ color: "red" }}>Category is required</p>
-      )}
-
+      <FieldWrapper>
+        <Input
+          label="Due Date"
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          error={fieldErrors.dueDate}
+        />
+      </FieldWrapper>
+      <FieldWrapper>
+        <Dropdown
+          label="Category"
+          options={categories.map((cat) => ({
+            value: cat.id,
+            label: cat.name,
+          }))}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          placeholder="Select a category"
+          error={fieldErrors.category}
+        />
+      </FieldWrapper>
       <Button
         type="submit"
         disabled={loading}
@@ -88,7 +82,7 @@ const AddTodoContainer: React.FC = () => {
         content="Add Todo"
       />
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
-    </form>
+    </FormWrapper>
   );
 };
 

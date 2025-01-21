@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 interface StyledButtonProps {
-  variant: "primary" | "secondary" | "danger";
+  $variant: "primary" | "secondary" | "danger";
   size: "small" | "medium" | "large";
 }
 
@@ -59,7 +59,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   cursor: pointer;
   transition: background-color 0.2s, opacity 0.2s;
 
-  ${({ variant }) => buttonVariants[variant]}
+  ${({ $variant }) => buttonVariants[$variant]}
   ${({ size }) => buttonSizes[size]}
 
   &:disabled {
