@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
-import { updateTodoThunk } from "../../redux/slices/todo";
+import { updateTodoThunk, deleteTodoThunk } from "../../redux/slices/todo";
 import { closeModal } from "../../redux/slices/ui";
-import Input from "../../components/Input";
-import Dropdown from "../../components/Dropdown";
-import Button from "../../components/Button";
+import { Button, Input, Dropdown, Icon } from "../../components";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 import { TodoItemType } from "../../redux/slices/todo/types";
 import { useValidateFields } from "../AddTodoContainer/hooks/useValidateFields";
-
+import { FormContainer, FormActions } from "./EditTodoContainer.style";
 interface EditTodoContainerProps {
   id: string;
 }
@@ -67,6 +67,16 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (todo) {
+      await dispatch(deleteTodoThunk(todo.id));
+
+      if (!error) {
+        handleCloseModal();
+      }
+    }
+  };
+
   const handleValidateFields = () => {
     const fields = {
       title,
@@ -86,7 +96,7 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <FormContainer onSubmit={handleSubmit}>
       <Input
         label="Title"
         value={title}
@@ -109,6 +119,7 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
         error={fieldErrors.dueDate}
       />
       <Dropdown
+        label="Category"
         options={categories.map((option) => ({
           value: option.id,
           label: option.name,
@@ -118,14 +129,24 @@ const EditTodoContainer: React.FC<EditTodoContainerProps> = ({ id }) => {
         placeholder="Select a category"
         error={fieldErrors.category}
       />
-      <Button
-        type="submit"
-        variant="primary"
-        disabled={loading}
-        loading={loading}
-        content="Save"
-      />
-    </form>
+      <FormActions>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={loading}
+          loading={loading}
+          content="Save"
+        />
+        <Button
+          type="button"
+          variant="danger"
+          disabled={loading}
+          loading={loading}
+          content={<Icon icon={faTrash} size="lg" />}
+          onClick={handleDelete}
+        />
+      </FormActions>
+    </FormContainer>
   );
 };
 
