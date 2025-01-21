@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
     <StyledButton
       type={type}
       onClick={onClick}
-      variant={variant}
+      $variant={variant}
       size={size}
       disabled={disabled}
     >

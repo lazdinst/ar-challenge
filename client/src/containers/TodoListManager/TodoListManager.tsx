@@ -45,8 +45,8 @@ const TodoListManager: React.FC = () => {
   const groupedTodos = useMemo(() => {
     return categories.reduce<Record<string, typeof todos>>(
       (acc, category) => {
-        acc[category.name] = sortedTodos.filter(
-          (todo) => todo.category === category.name
+        acc[category.id] = sortedTodos.filter(
+          (todo) => todo.category === category.id
         );
         return acc;
       },

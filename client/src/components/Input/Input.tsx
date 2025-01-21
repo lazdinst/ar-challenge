@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        error={error}
+        $error={error}
       />
     </InputWrapper>
   );

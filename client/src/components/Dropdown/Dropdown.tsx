@@ -21,7 +21,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <>
       {label && <StyledLabel htmlFor={label}>{label}</StyledLabel>}
-      <StyledSelect value={value} onChange={onChange} error={error}>
+      <StyledSelect value={value} onChange={onChange} $error={error}>
         {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
         {options.map((option) => (
           <StyledOption key={option.value} value={option.value}>

@@ -15,9 +15,9 @@ export const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #242424;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 8px 4px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 500px;
   z-index: 1001;

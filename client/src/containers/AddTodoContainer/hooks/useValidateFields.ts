@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface FieldErrors {
+export interface FieldErrorsType {
   title: boolean;
   description: boolean;
   dueDate: boolean;
@@ -8,7 +8,7 @@ interface FieldErrors {
 }
 
 export const useValidateFields = () => {
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({
+  const [fieldErrors, setFieldErrors] = useState<FieldErrorsType>({
     title: false,
     description: false,
     dueDate: false,

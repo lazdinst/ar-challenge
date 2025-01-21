@@ -23,6 +23,7 @@ interface TodoDNDManagerProps {
 const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
   const dispatch = useAppDispatch();
   const todos = useAppSelector((state) => state.todo.todos);
+  const categories = useAppSelector((state) => state.category.categories);
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -35,10 +36,17 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
       console.error("Todo not found for ID:", draggableId);
       return;
     }
-
     const updatedTodo = { ...todo, category: newCategory };
     dispatch(updateTodoThunk(updatedTodo));
   };
+
+  const getCategoryNameById = React.useCallback(
+    (id: string) => {
+      const category = categories.find((cat) => cat.id === id);
+      return category ? category.name : "Unknown Category";
+    },
+    [categories]
+  );
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
@@ -47,7 +55,7 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
           <Droppable key={category} droppableId={category}>
             {(provided) => (
               <CategoryColumnWrapper>
-                <CategoryTitle>{category}</CategoryTitle>
+                <CategoryTitle>{getCategoryNameById(category)}</CategoryTitle>
                 <CategoryColumn
                   ref={provided.innerRef}
                   {...provided.droppableProps}

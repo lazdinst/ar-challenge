@@ -1,44 +1,29 @@
 import styled from "styled-components";
 
-export const TodoItemWrapper = styled.div`
+export const TodoItemWrapper = styled.div<{ $completed: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.25rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 1rem;
   background-color: #333;
   color: #ededed;
+  color: ${({ $completed }) => ($completed ? "#888" : "inherit")};
+  text-decoration: ${({ $completed }) =>
+    $completed ? "line-through" : "none"};
 
-  &.completed {
-    text-decoration: line-through;
-    color: #888;
+  &:hover {
+    border: 1px solid #fff;
   }
 `;
 
 export const CheckboxWrapper = styled.div`
-  margin-right: 1rem;
-
-  input[type="checkbox"] {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-`;
-
-export const TodoContentWrapper = styled.div`
-  flex: 1;
   display: flex;
-  flex-direction: column;
-
-  h3 {
-    margin: 0;
-  }
-
-  p {
-    margin: 0.25rem 0 0;
-    font-size: 0.9rem;
-  }
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
 `;
 
 export const ActionButtons = styled.div`
@@ -53,5 +38,30 @@ export const ActionButtons = styled.div`
 
 export const TodoItemDate = styled.div<{ $isOverDue: boolean }>`
   color: ${({ $isOverDue }) => ($isOverDue ? "red" : "inherit")};
-  font-weight: ${({ $isOverDue }) => ($isOverDue ? "bold" : "normal")};
+  float: right;
+`;
+
+export const TodoContentWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    cursor: pointer;
+    margin: 0;
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+  }
+`;
+
+export const TodoFooter = styled.div`
+  float: right;
+`;
+
+export const TodoContent = styled.div`
+  flex: 1;
+  display: flex;
 `;
