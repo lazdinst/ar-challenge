@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const CategoriesWrapper = styled.div`
   display: flex;
   gap: 1rem;
-  overflow-x: auto;
+  /* overflow-x: hidden; */
+  overflow: auto;
   height: 100%;
   padding: 0rem 0.25rem 1rem 0.25rem;
 `;
