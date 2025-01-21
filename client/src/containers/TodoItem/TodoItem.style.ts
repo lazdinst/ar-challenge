@@ -68,5 +68,4 @@ export const TodoContent = styled.div`
 
 export const TodoTitle = styled.h3`
   margin: 0;
-  cursor: pointer;
 `;

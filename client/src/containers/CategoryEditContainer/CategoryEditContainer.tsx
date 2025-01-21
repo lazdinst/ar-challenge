@@ -5,7 +5,8 @@ import { updateCategoryThunk } from "../../redux/slices/category";
 import Input from "../../components/Input";
 import { useDebounce } from "../../hooks";
 import { CategoryInputWrapper } from "./CategoryEditContainer.style";
-
+import { Button, Icon } from "../../components";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 interface CategoryEditContainerProps {
   id: string;
 }
@@ -78,6 +79,12 @@ const CategoryEditContainer: React.FC<CategoryEditContainerProps> = ({
         onBlur={handleBlur}
         placeholder="Enter category name"
         error={error}
+      />
+      <Button
+        onClick={() => {}}
+        disabled={error}
+        variant="danger"
+        content={<Icon icon={faTrash} />}
       />
     </CategoryInputWrapper>
   );

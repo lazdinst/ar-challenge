@@ -13,6 +13,7 @@ const buttonVariants = {
 
     &:hover {
       background-color: #0056b3;
+      cursor: pointer;
     }
   `,
   secondary: css`
@@ -22,6 +23,7 @@ const buttonVariants = {
 
     &:hover {
       background-color: #5a6268;
+      cursor: pointer;
     }
   `,
   danger: css`
@@ -31,6 +33,7 @@ const buttonVariants = {
 
     &:hover {
       background-color: #bd2130;
+      cursor: pointer;
     }
   `,
 };

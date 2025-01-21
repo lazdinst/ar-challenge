@@ -63,9 +63,9 @@ const CategoryCreateContainer: React.FC = () => {
         placeholder="New Category Name"
         onKeyDown={handleKeyDown}
       />
+      <Button onClick={handleCreateCategory}>Add</Button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {apiError && !error && <p style={{ color: "red" }}>{apiError}</p>}
-      <Button onClick={handleCreateCategory}>Add</Button>
     </CategoryCreateWrapper>
   );
 };

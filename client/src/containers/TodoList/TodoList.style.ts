@@ -46,7 +46,6 @@ export const ControlsWrapper = styled.div`
       justify-content: center;
       background: none;
       border: none;
-      cursor: pointer;
 
       &:hover {
         color: #007bff;
