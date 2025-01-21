@@ -2,6 +2,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Todo } from "../models/todo.model";
 import { todos } from "./todos.defaults";
 
+export { todos };
+
 export const getTodos = (): Todo[] => todos;
 
 export const createTodo = (todo: Todo): Todo => {

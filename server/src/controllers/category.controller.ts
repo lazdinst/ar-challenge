@@ -72,7 +72,7 @@ export const deleteCategoryController = (req: Request, res: Response): void => {
     return;
   }
 
-  const success = deleteCategory(id);
+  const { success, updatedTodos } = deleteCategory(id);
 
   if (!success) {
     const error: ErrorResponse = {
@@ -83,6 +83,6 @@ export const deleteCategoryController = (req: Request, res: Response): void => {
     return;
   }
 
-  res.status(200).json();
+  res.status(200).json(updatedTodos);
   return;
 };
