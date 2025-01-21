@@ -45,38 +45,36 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <CategoriesWrapper>
         {Object.entries(groupedTodos).map(([category, todoList]) => (
-          <>
-            <CategoryColumnWrapper>
-              <CategoryEditContainer id={category} />
-              <Droppable key={category} droppableId={category}>
-                {(provided) => (
-                  <CategoryColumn
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    {todoList.map((todo, index) => (
-                      <Draggable
-                        key={todo.id}
-                        draggableId={todo.id}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <TodoItem todo={todo} />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </CategoryColumn>
-                )}
-              </Droppable>
-            </CategoryColumnWrapper>
-          </>
+          <Droppable key={category} droppableId={category}>
+            {(provided) => (
+              <CategoryColumnWrapper>
+                <CategoryEditContainer id={category} />
+                <CategoryColumn
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {todoList.map((todo, index) => (
+                    <Draggable
+                      key={todo.id}
+                      draggableId={todo.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <TodoItem todo={todo} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </CategoryColumn>
+              </CategoryColumnWrapper>
+            )}
+          </Droppable>
         ))}
         <CategoryColumnWrapper>
           <CategoryCreateContainer />
