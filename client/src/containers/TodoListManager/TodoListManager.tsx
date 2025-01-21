@@ -25,14 +25,14 @@ const TodoListManager: React.FC = () => {
   );
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  useEffect(() => {
-    handleFetch();
-  }, [dispatch]);
-
   const handleFetch = () => {
     dispatch(fetchTodosThunk());
     dispatch(fetchCategoriesThunk());
   };
+
+  useEffect(() => {
+    handleFetch();
+  }, [dispatch, handleFetch]);
 
   const filteredTodos = useMemo(() => {
     return todos.filter((todo) => {
