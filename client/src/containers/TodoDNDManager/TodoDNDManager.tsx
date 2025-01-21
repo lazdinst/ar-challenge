@@ -8,7 +8,6 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { updateTodoThunk } from "../../redux/slices/todo";
 import {
-  CategoryTitle,
   CategoriesWrapper,
   CategoryColumn,
   CategoryColumnWrapper,
@@ -16,6 +15,7 @@ import {
 import { TodoItemType } from "../../redux/slices/todo/types";
 import TodoItem from "../TodoItem";
 
+import CategoryEditContainer from "../CategoryEditContainer";
 interface TodoDNDManagerProps {
   groupedTodos: Record<string, TodoItemType[]>;
 }
@@ -23,7 +23,6 @@ interface TodoDNDManagerProps {
 const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
   const dispatch = useAppDispatch();
   const todos = useAppSelector((state) => state.todo.todos);
-  const categories = useAppSelector((state) => state.category.categories);
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -40,14 +39,6 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
     dispatch(updateTodoThunk(updatedTodo));
   };
 
-  const getCategoryNameById = React.useCallback(
-    (id: string) => {
-      const category = categories.find((cat) => cat.id === id);
-      return category ? category.name : "Unknown Category";
-    },
-    [categories]
-  );
-
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <CategoriesWrapper>
@@ -55,7 +46,7 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
           <Droppable key={category} droppableId={category}>
             {(provided) => (
               <CategoryColumnWrapper>
-                <CategoryTitle>{getCategoryNameById(category)}</CategoryTitle>
+                <CategoryEditContainer id={category} />
                 <CategoryColumn
                   ref={provided.innerRef}
                   {...provided.droppableProps}
