@@ -10,6 +10,7 @@ interface InputProps {
   id?: string;
   error?: boolean;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -21,6 +22,7 @@ const Input: React.FC<InputProps> = ({
   id,
   error = false,
   onBlur,
+  onFocus,
 }) => {
   return (
     <InputWrapper>
@@ -31,6 +33,7 @@ const Input: React.FC<InputProps> = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        onFocus={onFocus}
         placeholder={placeholder}
         $error={error}
       />

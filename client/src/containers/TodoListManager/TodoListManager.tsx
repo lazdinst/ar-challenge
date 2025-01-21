@@ -43,15 +43,12 @@ const TodoListManager: React.FC = () => {
   }, [filteredTodos, sortOrder, sortDirection]);
 
   const groupedTodos = useMemo(() => {
-    return categories.reduce<Record<string, typeof todos>>(
-      (acc, category) => {
-        acc[category.id] = sortedTodos.filter(
-          (todo) => todo.category === category.id
-        );
-        return acc;
-      },
-      { Uncategorized: sortedTodos.filter((todo) => !todo.category) }
-    );
+    return categories.reduce<Record<string, typeof todos>>((acc, category) => {
+      acc[category.id] = sortedTodos.filter(
+        (todo) => todo.category === category.id
+      );
+      return acc;
+    }, {});
   }, [sortedTodos, categories]);
 
   if (loading) return <div>Loading todos...</div>;

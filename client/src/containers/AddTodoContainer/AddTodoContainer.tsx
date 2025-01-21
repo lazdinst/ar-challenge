@@ -64,7 +64,7 @@ const AddTodoContainer: React.FC = () => {
       </FieldWrapper>
       <FieldWrapper>
         <Dropdown
-          label="Due Date"
+          label="Category"
           options={categories.map((cat) => ({
             value: cat.id,
             label: cat.name,

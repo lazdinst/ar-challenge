@@ -16,6 +16,8 @@ import { TodoItemType } from "../../redux/slices/todo/types";
 import TodoItem from "../TodoItem";
 
 import CategoryEditContainer from "../CategoryEditContainer";
+import CategoryCreateContainer from "../CreateCategoryContainer"; // Import your new category creation component
+
 interface TodoDNDManagerProps {
   groupedTodos: Record<string, TodoItemType[]>;
 }
@@ -74,6 +76,9 @@ const TodoDNDManager: React.FC<TodoDNDManagerProps> = ({ groupedTodos }) => {
             )}
           </Droppable>
         ))}
+        <CategoryColumnWrapper>
+          <CategoryCreateContainer />
+        </CategoryColumnWrapper>
       </CategoriesWrapper>
     </DragDropContext>
   );
