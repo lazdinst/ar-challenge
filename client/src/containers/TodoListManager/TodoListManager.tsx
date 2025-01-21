@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../redux/store";
 import { fetchTodosThunk } from "../../redux/slices/todo/thunks";
@@ -25,10 +25,10 @@ const TodoListManager: React.FC = () => {
   );
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  const handleFetch = () => {
+  const handleFetch = useCallback(() => {
     dispatch(fetchTodosThunk());
     dispatch(fetchCategoriesThunk());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     handleFetch();
